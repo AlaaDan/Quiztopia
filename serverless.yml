@@ -1,0 +1,76 @@
+service: quiztopia-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: serverlessUser
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::990371472798:role/course-role
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  getQuizez:
+    handler: functions/Quiz/getQuizez.handler
+    events:
+      - httpApi:
+          path: '/api/quiz'
+          method: GET
+  createQuiz:
+    handler: functions/Quiz/createQuiz.handler
+    events:
+      - httpApi:
+          path: '/api/quiz'
+          method: POST
+  addQuestion:
+    handler: functions/Quiz/addQuestion.handler
+    events:
+      - httpApi:
+          path: '/api/Quiz/{quizId}'
+          method: POST
+  deleteQuiz:
+    handler: functions/Quiz/deleteQuiz.handler
+    events:
+      - httpApi:
+          path: '/api/Quiz/{quizId}'
+          method: DELETE
+  getQuiz:
+    handler: functions/Quiz/getQuiz.handler
+    events:
+      - httpApi:
+          path: '/api/Quiz/{quizId}'
+          method: GET
+  createUser:
+    handler: functions/User/signup.handler
+    events:
+      - httpApi:
+          path: '/api/auth/signup'
+          method: POST
+  login:
+    handler: functions/User/login.handler
+    events:
+      - httpApi:
+          path: '/api/auth/login'
+          method: POST
+  
+
+resources:
+  Resources:
+    quiztopiaDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quiztopia-db
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH # Partition key/Primary key
+
+        BillingMode: PAY_PER_REQUEST
