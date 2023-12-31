@@ -1,27 +1,26 @@
 const jwt = require('jsonwebtoken');
 
+export async function createToken (userName, userID){
+    const token = jwt.sign({userName, userID}, "1a1b1c", {expiresIn: '1h'})
+    return token
+};
+
 export const validateToken = {
     before: async (request) => {
-        try {
-            const token = request.event.headers.Authorization.replace('Bearer ', '')
-
+        try{
+            const token = request.event.headers.authorization.replace('Bearer ', '')
             if (!token) {
-                throw new Error('No token provided')
+                return('No token provided')
+            } else {
+                const decoded = jwt.verify(token, "1a1b1c")
+                request.event.decoded = decoded
+                request.event.userName = decoded.userName
+                request.event.userID = decoded.userID
+                return request.response
             }
-            const data = jwt.verify(token, 'a1b1c1')
-            request.event.id = data.id
-            request.event.userName = data.userName
-
-            return request.response
-
-        }
-        catch (err) {
+        } catch (err) {
             request.event.error = "401"
             return request.response
         }
-    },
-    onError: async (request) => {
-        request.event.error = "401"
-            return request.response
     }
 }
