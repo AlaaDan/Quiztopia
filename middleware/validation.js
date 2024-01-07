@@ -33,7 +33,15 @@ const quizSchema = Joi.object({
     quizAuthor: Joi.string().min(3).max(30).required(),
 })
 
+const questionSchema = Joi.object({
+    question: Joi.string().min(3).max(30).required(),
+    answer: Joi.string().min(3).max(30).required(),
+    quizID: Joi.string().required(),
+    longitude: Joi.string().required(),
+    latitude: Joi.string().required(),
+})
 
 
+export const validateQuestion = validate(questionSchema)
 export const validateQuiz = validate(quizSchema)
 export const validateUser = validate(userSchema)

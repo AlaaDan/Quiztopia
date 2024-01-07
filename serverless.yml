@@ -32,7 +32,7 @@ functions:
     handler: functions/Quiz/addQuestion.handler
     events:
       - httpApi:
-          path: '/api/Quiz/{quizId}'
+          path: '/api/Quiz/AddQuestion'
           method: POST
   deleteQuiz:
     handler: functions/Quiz/deleteQuiz.handler
