@@ -12,61 +12,57 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 -->
 
 
-# Serverless Framework AWS NodeJS Example
+# Individual examination: Quiztopia API
 
-This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+## Background
 
-## Usage
+Welcome to Quiztopia - we're not just a company, we're a revolution. We are a bunch of tech geeks based in Gothenburg, who love to explore cities and do it in the geekiest way possible - through a web app. We're like a GPS on steroids, but instead of just telling you where to go, we give you questions based on your location. It's like having a little Jeopardy! game show in your pocket.
 
-### Deployment
+Our app is like an interactive city tour, but with a twist. Each correct answer gives points, making it a fun experience. It's like playing Pokémon Go, but instead of catching Pokémon, you catch knowledge.
 
-In order to deploy the example, you need to run the following command:
+## Instructions
 
-```
-$ serverless deploy
-```
+Description of what is to be built, the requirement specification and the technical requirements.
 
-After running deploy, you should see output similar to:
+#### Requirements specification
 
-```bash
-Deploying aws-node-project to stage dev (us-east-1)
+* It is possible to create an account and log in.
+* You can see all the quizzes, what the quiz is called and who created it.
+* It is possible to choose a specific quiz and get all the questions.
 
-✔ Service deployed to stack aws-node-project-dev (112s)
+**Requires login**
 
-functions:
-  hello: aws-node-project-dev-hello (1.5 kB)
-```
+For the functionality below, you can only work on your own user. So you cannot, for example, delete someone else's quiz.
+* It is possible to create a quiz.
+* It is possible to add questions to a created quiz.
+  - A question contains: The question, the answer and coordinates on the map (longitude and latitude).
+* It is possible to delete a quiz.
 
-### Invocation
+**VG requirements**
 
-After successful deployment, you can invoke the deployed function by using the following command:
+* There is a "leaderboard" of which players got the most points on each quiz. Here you will need to have two endpoints, one to register points for a user and an endpoint to retrieve the top list of points and users for a quiz.
+* There is error handling in case something goes wrong against DynamoDB and in case you try to submit wrong values ​​from body.
 
-```bash
-serverless invoke --function hello
-```
+#### Technical requirements
 
-Which should result in response similar to the following:
+* Serverless framework
+* Middy
+* JSON Web Token
+* API Gateway
+* AWS Lambda
+* DynamoDB
 
-```json
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": {}\n}"
-}
-```
+## Grading criteria
 
-### Local development
+**To Pass:**
+* Meets all requirements in the requirements specification.
+* Meets all technical requirements.
 
-You can invoke your function locally by using the following command:
+**For Well Passed:**
+* Meets all requirements in the requirements specification including the VG requirements.
 
-```bash
-serverless invoke local --function hello
-```
+## Swagger
 
-Which should result in response similar to the following:
+To be inspired and get a clearer picture, you can check out this Swagger, however, it does not have to be exactly according to this model, but can be seen more as inspiration.
 
-```
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
+Swagger: http://quiztopia-api-documentation.s3-website.eu-north-1.amazonaws.com/#/
