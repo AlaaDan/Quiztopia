@@ -65,12 +65,12 @@ resources:
     quiztopiaDB:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: quiztopia-db
+        TableName: quiztopiaDB
         AttributeDefinitions:
-          - AttributeName: PK
+          - AttributeName: quizID
             AttributeType: S
         KeySchema:
-          - AttributeName: PK
+          - AttributeName: quizID
             KeyType: HASH # Partition key/Primary key
 
         BillingMode: PAY_PER_REQUEST

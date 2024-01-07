@@ -8,7 +8,7 @@ import { nanoid } from "nanoid"
 
 export async function addQuiz(quizName, quizAuthor, userID, quizID){
     const quiz = {
-        PK: quizID,
+        quizID: quizID,
         entityType: "Quiz",
         quizName: quizName,
         quizAuthor: quizAuthor,
@@ -16,7 +16,7 @@ export async function addQuiz(quizName, quizAuthor, userID, quizID){
     }
 
     await db.put({
-        TableName: 'quiztopia-db',
+        TableName: 'quiztopiaDB',
         Item: quiz
     }).promise()
 

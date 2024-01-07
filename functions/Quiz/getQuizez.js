@@ -3,7 +3,7 @@ const { sendResponse, sendError } = require('../../responses/index')
 
 const getQuizzes = async () => {
     const quizzes = await db.scan({
-        TableName: 'quiztopia-db',
+        TableName: 'quiztopiaDB',
         FilterExpression: "#entityType = :Quiz",
         ExpressionAttributeValues: {
             ":Quiz" :"Quiz"
