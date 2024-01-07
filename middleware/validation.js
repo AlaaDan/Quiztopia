@@ -5,7 +5,7 @@ const validate = (schema) => ({
         try{
             const body = JSON.parse(request.event.body)
             
-            const { error } = userSchema.validate(body)
+            const { error } = schema.validate(body)
             if(error){
                 return{
                     statusCode: 400,
@@ -28,4 +28,12 @@ const userSchema = Joi.object({
     password: Joi.string().min(8).max(30).required()
 })
 
+const quizSchema = Joi.object({
+    quizName: Joi.string().min(3).max(30).required(),
+    quizAuthor: Joi.string().min(3).max(30).required(),
+})
+
+
+
+export const validateQuiz = validate(quizSchema)
 export const validateUser = validate(userSchema)

@@ -1,20 +1,22 @@
 const { db } = require('../../services/db')
 const { sendResponse, sendError } = require('../../responses/index')
-const middy = require('@middy/core')
 
 const getQuizzes = async () => {
     const quizzes = await db.scan({
         TableName: 'quiztopia-db',
-        FilterExpression: 'quiz = :quiz',
+        FilterExpression: "#entityType = :Quiz",
         ExpressionAttributeValues: {
-            ':quiz': 'quiz'
+            ":Quiz" :"Quiz"
+        }, 
+        ExpressionAttributeNames: {
+            "#entityType": "entityType"
         }
     }).promise()
 
-    if(quizzes.Items.length === 0){
-        throw new Error('No quizzes found')
-    } else {
+    if(quizzes.Items){
         return quizzes
+    } else {
+        throw new Error('No quizzes found')
     }
 }
 

@@ -74,3 +74,15 @@ resources:
             KeyType: HASH # Partition key/Primary key
 
         BillingMode: PAY_PER_REQUEST
+    userDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: user-db
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH # Partition key/Primary key
+
+        BillingMode: PAY_PER_REQUEST

@@ -7,7 +7,7 @@ const middy = require('@middy/core')
 
 export async function encryptPass(pass, userName){
     const userInDB = await db.scan({
-        TableName: 'quiztopia-db',
+        TableName: 'user-db',
         FilterExpression: 'userName = :userName',
         ExpressionAttributeValues: {
             ':userName': userName
@@ -31,7 +31,7 @@ export async function addUser(userID, userName, encryptedPass){
         password: encryptedPass
     }
     await db.put({
-        TableName: 'quiztopia-db',
+        TableName: 'user-db',
         Item: newUser
     }).promise()
 
